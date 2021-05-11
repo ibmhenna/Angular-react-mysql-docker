@@ -1,0 +1,28 @@
+table{
+  border-collapse:collapse;
+  width:100%;
+  border: 1px solid black;
+}
+
+th,td{
+  border: 1px soild black;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(odd){
+  background-color: rgb(160, 203, 223);
+}
+
+tr,tr td:hover{
+  background-color:rgb(213, 218, 221);
+}
+
+body {
+	position: relative;
+}
+
+#readmore{
+  font-size: smaller;
+  font-style: italic;
+}

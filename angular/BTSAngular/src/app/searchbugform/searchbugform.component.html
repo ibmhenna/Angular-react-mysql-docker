@@ -1,0 +1,145 @@
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+  <div
+    class="container-fluid bg-muted"
+    style="padding-top: 10px; padding-bottom: 10px"
+  ></div>
+
+  <div
+    id="searchBug"
+    class="container tab-pane active"
+    style="padding-bottom: 30px"
+  >
+    <!-- input fields -->
+    <div class="row">
+      <div class="col">
+        <div class="form-group form-inline">
+          <label for="uname" class="mb-2 mr-sm-2"><b>Bug Name : </b></label>
+          <br />
+          <input
+            type="text"
+            [(ngModel)]="bug.name"
+            class="form-control mb-2 mr-sm-2"
+            id="name"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="form-group form-inline">
+          <label for="uname" class="mb-2 mr-sm-2"><b>Bug status : </b></label>
+          <br />
+          <select
+            style="width: 250px"
+            class="custom-select custom-select mb-3"
+            id="status"
+            [(ngModel)]="bug.status"
+            required
+          >
+            <option>NEW</option>
+            <option>ASSIGNED</option>
+            <option>OPEN</option>
+            <option>FIXED</option>
+            <option>PENDING_RETEST</option>
+            <option>RETEST</option>
+            <option>REOPEN</option>
+            <option>VERIFIED</option>
+            <option>CLOSED</option>
+            <option>DEFERRED</option>
+            <option>DUPLICATE</option>
+            <option>NOT_A_BUG</option>
+            <option>REJECTED</option>
+            <option>COULD_NOT_REPRODUCE</option>
+            <option>WONT_FIX</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- button for get all bugs -->
+
+    <div class="text-center">
+      <button
+        class="btn btn-info"
+        style="width: 30%"
+        (click)="searchBugbyNameandStatus()"
+      >
+        Search by Name and Status
+      </button>
+
+      &nbsp;&nbsp;
+      <button class="btn btn-info" style="width: 30%" (click)="refreshPage()">
+        Refresh
+      </button>
+    </div>
+
+    <!-- table -->
+
+    <div class="table-responsive">
+      <table
+        class="table table-bordered table-stripped"
+        style="border: 2px solid #000000; margin-top: 50px"
+      >
+        <thead class="thead-dark">
+          <td>Bug Name</td>
+          <td>Project ID</td>
+          <td>Synopsis</td>
+          <td>Description</td>
+          <td>Submitted Date</td>
+          <td>Estimated Time</td>
+          <td>Status</td>
+          <td>Priority</td>
+          <td>Severity</td>
+          <td>Type</td>
+          <td>Delete Bug</td>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let bug of bugArray; index as i">
+            <td>{{ bug.name }}</td>
+            <td>{{ bug.projectId }}</td>
+            <td>
+              {{ bug.synopsis | ellipsis: 12
+              }}<button id="readmore"
+                class="btn btn-link"
+                (click)="showDescription(this.bug.synopsis)"
+              >
+                ReadMore
+              </button>
+            </td>
+            <td>
+              {{ bug.description | ellipsis: 12
+              }}<button id="readmore"
+                class="btn btn-link"
+                (click)="showDescription(this.bug.description)"
+              >
+                ReadMore
+              </button>
+            </td>
+            <td>{{ bug.submittedOn | date }}</td>
+            <td>{{ bug.eta | date }}</td>
+            <td>{{ bug.status }}</td>
+            <td>{{ bug.priority }}</td>
+            <td>{{ bug.severity }}</td>
+            <td>{{ bug.type }}</td>
+            <td>
+              <button
+                class="btn btn-danger"
+                (click)="this.deleteBug(bug.id, i)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- footer -->
+      <footer class="page-footer font-small blue" id="footer">
+        <div class="footer-copyright text-center py-3">
+          <small>© 2021 Copyright Code_with_HAT</small>
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
